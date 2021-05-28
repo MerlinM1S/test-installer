@@ -85,9 +85,9 @@ public class Downloader {
                 Cursor cursor = manager.query(query);
                 if (cursor.moveToFirst()) {
                     if (cursor.getCount() > 0) {
-                        int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                        int status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
                         if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                            String fileName = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                            String fileName = cursor.getString(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI));
                             progressListener.onProgress( "Download completed with [" + fileName + "!");
 
                             Uri fileUri = Uri.parse(fileName);
@@ -109,7 +109,7 @@ public class Downloader {
 
                             progressListener.onProgress( "Started ACTION_VIEW!");
                         } else {
-                            int message = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
+                            int message = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
                             progressListener.onProgress( "Download failed with [" + message + "]! ");
                         }
                     }
